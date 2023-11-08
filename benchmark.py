@@ -21,7 +21,7 @@ def log(message):
         file.write(f'{formatted_time} - {message}\n')
 
 if __name__ == '__main__':
-    log('start benchmark')
+    log('Loading whisper model.... wait...')
     whisper_model = whisper.load_model(config.whisper_model)
     log(f'whisper model {config.whisper_model} loaded')
 
@@ -43,4 +43,4 @@ if __name__ == '__main__':
     
     total_time_ms = (end_time - start_time) * 1000
 
-    log(f'Total time: {total_time_ms} ms, average loop: {total_time_ms / config.iterations} ms, fastest loop: {fastest_loop} ms, slowest loop: {slowest_loop} ms')
+    log(f'GPU: {config.GPU_NUMBER} Total time: {total_time_ms} ms, average loop: {total_time_ms / config.iterations} ms, fastest: {fastest_loop} ms, slowest: {slowest_loop} ms')
