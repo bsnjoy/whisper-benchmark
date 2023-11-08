@@ -3,9 +3,10 @@ import whisper
 import datetime
 import time
 import config
+import os
 
 # using third GPU. So that first one=0 will available to other projects by default.
-# os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+os.environ["CUDA_VISIBLE_DEVICES"] = config.GPU_NUMBER
 
 options = {"beam_size": 5, "best_of": 5}
 
