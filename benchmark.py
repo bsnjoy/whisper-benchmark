@@ -21,13 +21,14 @@ def log(message):
         file.write(f'{formatted_time} - {message}\n')
 
 if __name__ == '__main__':
-    log('Loading whisper model.... wait...')
-    start_time = time.time()
+    log(f'Loading whisper model {config.whisper_model}.... wait...')
+    start_total_time = time.time()
+    start_model_time = time.time()
     whisper_model = whisper.load_model(config.whisper_model)
-    whisper_load_time = time.time() - start_time
+    whisper_load_time = time.time() - start_model_time
     log(f'whisper model {config.whisper_model} loaded in {whisper_load_time:.3f} sec')
 
-    start_time = time.time()
+    start_transcribe_time = time.time()
 
     fastest_loop = 0
     slowest_loop = 0
@@ -43,6 +44,7 @@ if __name__ == '__main__':
         log(f'loop {i} time: {loop_time} sec. result: {result["text"]}')
     end_time = time.time()
     
-    total_time_ms = (end_time - start_time)
+    transcribe_time = (end_time - start_transcribe_time)
+    total_time = (end_time - start_total_time)
 
-    log(f'GPU: {config.GPU_NUMBER} Total time: {total_time_ms:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, average loop: {total_time_ms / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
+    log(f'GPU: {config.GPU_NUMBER} Total: {total_time:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, Transcribe: {transcribe_time} sec, average loop: {total_time_ms / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
