@@ -22,8 +22,10 @@ def log(message):
 
 if __name__ == '__main__':
     log('Loading whisper model.... wait...')
+    start_time = time.time()
     whisper_model = whisper.load_model(config.whisper_model)
-    log(f'whisper model {config.whisper_model} loaded')
+    whisper_load_time = time.time() - start_time
+    log(f'whisper model {config.whisper_model} loaded in {whisper_load_time:.3f} sec')
 
     start_time = time.time()
 
@@ -41,6 +43,6 @@ if __name__ == '__main__':
         log(f'loop {i} time: {loop_time} sec. result: {result["text"]}')
     end_time = time.time()
     
-    total_time_ms = (end_time - start_time) * 1000
+    total_time_ms = (end_time - start_time)
 
-    log(f'GPU: {config.GPU_NUMBER} Total time: {total_time_ms} ms, average loop: {total_time_ms / config.iterations} ms, fastest: {fastest_loop} ms, slowest: {slowest_loop} ms')
+    log(f'GPU: {config.GPU_NUMBER} Total time: {total_time_ms:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, average loop: {total_time_ms / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
