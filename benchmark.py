@@ -38,7 +38,7 @@ if __name__ == '__main__':
             fastest_loop = loop_time
         if loop_time > slowest_loop:
             slowest_loop = loop_time
-        log(f'loop {i} time: {loop_time} sec')    
+        log(f'loop {i} time: {loop_time} sec. result: {result["text"]}')
     end_time = time.time()
     
     total_time_ms = (end_time - start_time) * 1000
