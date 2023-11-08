@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import whisper
-import datetime
+from datetime import datetime
 import time
 import config
 import os
