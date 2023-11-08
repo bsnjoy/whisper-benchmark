@@ -47,4 +47,4 @@ if __name__ == '__main__':
     transcribe_time = (end_time - start_transcribe_time)
     total_time = (end_time - start_total_time)
 
-    log(f'GPU: {config.GPU_NUMBER} Total: {total_time:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, Transcribe: {transcribe_time} sec, average loop: {total_time / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
+    log(f'GPU: {config.GPU_NUMBER} Total: {total_time:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, Transcribe: {transcribe_time:.3f} sec, average loop: {total_time / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
