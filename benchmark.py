@@ -4,9 +4,17 @@ from datetime import datetime
 import time
 import config
 import os
+import sys
 
+# Check if at least one additional argument is provided
+if len(sys.argv) > 1:
+    gpu = sys.argv[1]
+    print(f"Set GPU Number from command line: {gpu}")
+else:
+    gpu = config.GPU_NUMBER
+    
 # using third GPU. So that first one=0 will available to other projects by default.
-os.environ["CUDA_VISIBLE_DEVICES"] = config.GPU_NUMBER
+os.environ["CUDA_VISIBLE_DEVICES"] = gpu
 
 options = {"beam_size": 5, "best_of": 5}
 
@@ -21,7 +29,7 @@ def log(message):
         file.write(f'{formatted_time} - {message}\n')
 
 if __name__ == '__main__':
-    log(f'Loading whisper model {config.whisper_model}.... wait...')
+    log(f'Loading whisper model {config.whisper_model} in GPU {gpu}.... wait...')
     start_total_time = time.time()
     start_model_time = time.time()
     whisper_model = whisper.load_model(config.whisper_model)
@@ -47,4 +55,4 @@ if __name__ == '__main__':
     transcribe_time = (end_time - start_transcribe_time)
     total_time = (end_time - start_total_time)
 
-    log(f'GPU: {config.GPU_NUMBER} Total: {total_time:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, Transcribe: {transcribe_time:.3f} sec, average loop: {total_time / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
+    log(f'GPU: {gpu} Total: {total_time:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, Transcribe: {transcribe_time:.3f} sec, average loop: {total_time / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
