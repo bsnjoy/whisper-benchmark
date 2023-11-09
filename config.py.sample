@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-file_path = "/root/whisperserver/uploads/2023/11/08/file-1699422839617.wav"
+file_path = "audio/audio-ru-v1.wav"
 whisper_model = "large-v3"
 iterations = 10
 GPU_NUMBER = "0"
