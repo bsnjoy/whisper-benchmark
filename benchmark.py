@@ -5,6 +5,8 @@ import time
 import config
 import os
 import sys
+import platform
+import distro
 
 # Check if at least one additional argument is provided
 if len(sys.argv) > 1:
@@ -18,6 +20,15 @@ os.environ["CUDA_VISIBLE_DEVICES"] = gpu
 
 options = {"beam_size": 5, "best_of": 5}
 
+def get_os_info():
+        # Check if the operating system is Linux
+    if platform.system() == "Linux":
+        # Get distribution name and version
+        os_info = f'{distro.name()} {distro.version()}'
+    else:
+        # For non-Linux operating systems
+        os_info = f'{platform.platform()}'
+    return os_info
 
 def log(message):
     current_time = datetime.now()
@@ -55,4 +66,4 @@ if __name__ == '__main__':
     transcribe_time = (end_time - start_transcribe_time)
     total_time = (end_time - start_total_time)
 
-    log(f'GPU: {gpu} Total: {total_time:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, Transcribe: {transcribe_time:.3f} sec, average loop: {total_time / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
+    log(f'{get_os_info()} GPU: {gpu} Total: {total_time:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, Transcribe: {transcribe_time:.3f} sec, average loop: {total_time / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
