@@ -7,16 +7,17 @@ import os
 import sys
 import platform
 import distro
+import GPUtil
 
 # Check if at least one additional argument is provided
 if len(sys.argv) > 1:
-    gpu = sys.argv[1]
+    gpu_num = sys.argv[1]
     print(f"Set GPU Number from command line: {gpu}")
 else:
-    gpu = config.GPU_NUMBER
+    gpu_num = config.GPU_NUMBER
     
 # using third GPU. So that first one=0 will available to other projects by default.
-os.environ["CUDA_VISIBLE_DEVICES"] = gpu
+os.environ["CUDA_VISIBLE_DEVICES"] = gpu_num
 
 options = {"beam_size": 5, "best_of": 5}
 
@@ -40,7 +41,7 @@ def log(message):
         file.write(f'{formatted_time} - {message}\n')
 
 if __name__ == '__main__':
-    log(f'Loading whisper model {config.whisper_model} in GPU {gpu}.... wait...')
+    log(f'Loading whisper model {config.whisper_model} in GPU {gpu_num}.... wait...')
     start_total_time = time.time()
     start_model_time = time.time()
     whisper_model = whisper.load_model(config.whisper_model)
@@ -66,4 +67,8 @@ if __name__ == '__main__':
     transcribe_time = (end_time - start_transcribe_time)
     total_time = (end_time - start_total_time)
 
-    print(f'{get_os_info()} GPU: {gpu} Total: {total_time:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, Transcribe: {transcribe_time:.3f} sec, average loop: {total_time / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
+    gpus = GPUtil.getGPUs()
+    gpu = gpus[gpu_num]
+    print('| OS | GPU | GPU ID | GPU Load | GPU Free | GPU Used | Gpu Temp | Total, sec | Model | Model Load, sec | Transcribe, sec | Average Loop, sec | Fastest Loop Time | Slowest Loop, sec |')
+    print(f'| {get_os_info()} | {gpu.name} | {gpu.load*100}% | {gpu.memoryFree}MB | {gpu.memoryUsed}MB | {gpu.temperature} °C | {gpu_num} | {total_time:.3f} | {config.whisper_model} | {whisper_load_time:.3f} | {transcribe_time:.3f} | {total_time / config.iterations:.3f} | {fastest_loop:.3f} | {slowest_loop:.3f} |')
+    print(f'{get_os_info()} {gpu.name} GPU: {gpu_num}, Total: {total_time:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, Transcribe: {transcribe_time:.3f} sec, average loop: {total_time / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
