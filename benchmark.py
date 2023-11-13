@@ -70,5 +70,5 @@ if __name__ == '__main__':
     gpus = GPUtil.getGPUs()
     gpu = gpus[int(gpu_num)]
     print('| OS | GPU | GPU ID | GPU Load | GPU Free | GPU Used | Gpu Temp | Total, sec | Model | Model Load, sec | Transcribe, sec | Average Loop, sec | Fastest Loop Time | Slowest Loop, sec |')
-    print(f'| {get_os_info()} | {gpu.name} | {gpu.load*100}% | {gpu.memoryFree}MB | {gpu.memoryUsed}MB | {gpu.temperature} °C | {gpu_num} | {total_time:.3f} | {config.whisper_model} | {whisper_load_time:.3f} | {transcribe_time:.3f} | {total_time / config.iterations:.3f} | {fastest_loop:.3f} | {slowest_loop:.3f} |')
+    print(f'| {get_os_info()} | {gpu.name} | {gpu_num} | {gpu.load*100}% | {gpu.memoryFree}MB | {gpu.memoryUsed}MB | {gpu.temperature} °C | {total_time:.3f} | {config.whisper_model} | {whisper_load_time:.3f} | {transcribe_time:.3f} | {total_time / config.iterations:.3f} | {fastest_loop:.3f} | {slowest_loop:.3f} |')
     print(f'{get_os_info()} {gpu.name} GPU: {gpu_num}, Total: {total_time:.3f} sec, Model {config.whisper_model} load: {whisper_load_time:.3f} sec, Transcribe: {transcribe_time:.3f} sec, average loop: {total_time / config.iterations:.3f} sec, fastest: {fastest_loop:.3f} sec, slowest: {slowest_loop:.3f} sec')
