@@ -15,7 +15,13 @@ if len(sys.argv) > 1:
     print(f"Set GPU Number from command line: {gpu}")
 else:
     gpu_num = config.GPU_NUMBER
-    
+
+# Get the directory where the script is located
+script_dir = os.path.dirname(__file__)
+
+# Construct the absolute path to the file
+audio_file_path = os.path.join(script_dir, "audio/audio-ru-v1.wav")
+
 # using third GPU. So that first one=0 will available to other projects by default.
 os.environ["CUDA_VISIBLE_DEVICES"] = gpu_num
 
@@ -55,7 +61,7 @@ if __name__ == '__main__':
 
     for i in range(config.iterations):
         one_loop_start_time = time.time()
-        result = whisper_model.transcribe(config.file_path, **options)
+        result = whisper_model.transcribe(audio_file_path, **options)
         loop_time = time.time() - one_loop_start_time
         if loop_time < fastest_loop or fastest_loop == 0:
             fastest_loop = loop_time
