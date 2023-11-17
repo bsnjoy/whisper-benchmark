@@ -12,9 +12,12 @@ import GPUtil
 # Check if at least one additional argument is provided
 if len(sys.argv) > 1:
     gpu_num = sys.argv[1]
-    print(f"Set GPU Number from command line: {gpu}")
+    print(f"Set GPU Number from command line: {gpu_num}")
 else:
     gpu_num = config.GPU_NUMBER
+
+# Which GPU to use
+os.environ["CUDA_VISIBLE_DEVICES"] = gpu_num
 
 # Get the directory where the script is located
 script_dir = os.path.dirname(__file__)
@@ -22,8 +25,6 @@ script_dir = os.path.dirname(__file__)
 # Construct the absolute path to the file
 audio_file_path = os.path.join(script_dir, "audio/audio-ru-v1.wav")
 
-# using third GPU. So that first one=0 will available to other projects by default.
-os.environ["CUDA_VISIBLE_DEVICES"] = gpu_num
 
 options = {"beam_size": 5, "best_of": 5}
 
