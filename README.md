@@ -4,13 +4,13 @@ Test how fast is your GPU running Whisper
 ## Install
 ```
 sudo apt update
-sudo apt install -y git
-sudo apt install -y python3-pip
-sudo apt install -y ffmpeg
+sudo apt install -y git ffmpeg python3-pip python3.11-venv
 
-pip install git+https://github.com/openai/whisper.git
 git clone https://github.com/bsnjoy/whisper-benchmark.git
 cd whisper-benchmark
+mkdir venv
+python3 -m venv venv/
+. venv/bin/activate
 pip install -r requirements.txt
 cp config.py.sample config.py
 # Run
