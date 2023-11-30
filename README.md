@@ -6,8 +6,8 @@ Test how fast is your GPU running Whisper
 sudo apt update
 sudo apt install -y git ffmpeg python3-pip python3.11-venv
 
-git clone https://github.com/bsnjoy/whisper-benchmark.git
-cd whisper-benchmark
+git clone https://github.com/bsnjoy/whisper-benchmark.git benchmark
+cd benchmark
 mkdir venv
 python3 -m venv venv/
 . venv/bin/activate
