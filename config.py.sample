@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-file_path = "audio/audio-ru-v1.wav"
+i#file_path = "audio/audio-ru-v1.wav"
+file_path = "audio/halucinations-ru-ch-01.ogg"
 whisper_model = "large-v3"
 iterations = 10
 GPU_NUMBER = "0"
