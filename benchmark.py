@@ -23,7 +23,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = gpu_num
 script_dir = os.path.dirname(__file__)
 
 # Construct the absolute path to the file
-audio_file_path = os.path.join(script_dir, "audio/audio-ru-v1.wav")
+audio_file_path = os.path.join(script_dir, config.file_path)
 
 
 options = {"beam_size": 5, "best_of": 5}
